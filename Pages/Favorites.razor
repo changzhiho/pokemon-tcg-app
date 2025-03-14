@@ -56,29 +56,6 @@ else
         {
             <div class="favorite-card-container">
                 <PokemonCardComponent Card="favorite.Card" OnCardSelected="SelectCard" />
-                <div class="favorite-card-info">
-                    @if (!string.IsNullOrEmpty(favorite.Notes) || !string.IsNullOrEmpty(favorite.Condition) || !string.IsNullOrEmpty(favorite.MarketPrice))
-                    {
-                        <div class="favorite-card-badge" title="Has notes">
-                            <span class="oi oi-document"></span>
-                        </div>
-                        
-                        <div class="favorite-card-tooltip">
-                            @if (!string.IsNullOrEmpty(favorite.Condition))
-                            {
-                                <p><strong>Condition:</strong> @favorite.Condition</p>
-                            }
-                            @if (!string.IsNullOrEmpty(favorite.MarketPrice))
-                            {
-                                <p><strong>Price:</strong> @favorite.MarketPrice</p>
-                            }
-                            @if (!string.IsNullOrEmpty(favorite.Notes))
-                            {
-                                <p><strong>Notes:</strong> @(favorite.Notes.Length > 50 ? favorite.Notes.Substring(0, 47) + "..." : favorite.Notes)</p>
-                            }
-                        </div>
-                    }
-                </div>
             </div>
         }
     </div>
@@ -127,4 +104,3 @@ else
         SelectedCard = null;
     }
 }
-
