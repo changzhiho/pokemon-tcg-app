@@ -1,0 +1,130 @@
+@page "/favorites"
+@using Microsoft.AspNetCore.Components.Web
+@using PokemonTcgApp.Models
+@using PokemonTcgApp.Services
+@using PokemonTcgApp.Components
+@inject FavoritesService FavoritesService
+
+@* 
+    Page that displays all favorite Pokemon cards.
+    Shows a grid of cards and allows viewing/editing details.
+*@
+
+<PageTitle>My Favorites - Pokemon TCG</PageTitle>
+
+<h1>My Favorite Cards</h1>
+<p class="lead">Here you can view and manage all your favorite Pokemon cards, including notes, condition and market prices.</p>
+
+@if (IsLoading)
+{
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+}
+else if (FavoriteCards.Count == 0)
+{
+    <div class="alert alert-info">
+        <h4 class="alert-heading">No favorites yet!</h4>
+        <p>You don't have any favorite cards yet. Go to the Search page to find and add cards to your favorites!</p>
+        <hr>
+        <p class="mb-0">
+            <a href="/" class="btn btn-primary">
+                <span class="oi oi-magnifying-glass" aria-hidden="true"></span> Search for Cards
+            </a>
+        </p>
+    </div>
+}
+else if (SelectedCard != null)
+{
+    <button class="btn btn-secondary mb-3" @onclick="BackToFavorites">
+        <span class="oi oi-arrow-left"></span> Back to favorites
+    </button>
+    <CardDetail Card="SelectedCard" OnFavoriteChanged="LoadFavorites" />
+}
+else
+{
+    <div class="mb-4">
+        <div class="alert alert-info">
+            <span class="oi oi-info"></span> Click on any card to view details and edit your notes, condition, and market price.
+        </div>
+    </div>
+    
+    <div class="card-grid">
+        @foreach (var favorite in FavoriteCards)
+        {
+            <div class="favorite-card-container">
+                <PokemonCardComponent Card="favorite.Card" OnCardSelected="SelectCard" />
+                <div class="favorite-card-info">
+                    @if (!string.IsNullOrEmpty(favorite.Notes) || !string.IsNullOrEmpty(favorite.Condition) || !string.IsNullOrEmpty(favorite.MarketPrice))
+                    {
+                        <div class="favorite-card-badge" title="Has notes">
+                            <span class="oi oi-document"></span>
+                        </div>
+                        
+                        <div class="favorite-card-tooltip">
+                            @if (!string.IsNullOrEmpty(favorite.Condition))
+                            {
+                                <p><strong>Condition:</strong> @favorite.Condition</p>
+                            }
+                            @if (!string.IsNullOrEmpty(favorite.MarketPrice))
+                            {
+                                <p><strong>Price:</strong> @favorite.MarketPrice</p>
+                            }
+                            @if (!string.IsNullOrEmpty(favorite.Notes))
+                            {
+                                <p><strong>Notes:</strong> @(favorite.Notes.Length > 50 ? favorite.Notes.Substring(0, 47) + "..." : favorite.Notes)</p>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    // Collection of favorite cards to display
+    private List<FavoriteCard> FavoriteCards { get; set; } = new List<FavoriteCard>();
+    
+    // Currently selected card for detailed view
+    private PokemonTcgApp.Models.PokemonCard? SelectedCard { get; set; }
+    
+    // Loading state indicator
+    private bool IsLoading { get; set; } = true;
+
+    // Initialize component by loading favorites
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadFavorites();
+    }
+
+    // Load favorite cards from the service
+    private async Task LoadFavorites()
+    {
+        IsLoading = true;
+        
+        try
+        {
+            FavoriteCards = await FavoritesService.GetFavoritesAsync();
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+
+    // Handle card selection to show details
+    private void SelectCard(PokemonTcgApp.Models.PokemonCard card)
+    {
+        SelectedCard = card;
+    }
+
+    // Return to favorites grid view from detail view
+    private void BackToFavorites()
+    {
+        SelectedCard = null;
+    }
+}
+
