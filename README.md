@@ -18,7 +18,6 @@ A Blazor WebAssembly application that allows users to search, view, and manage t
 - [Usage](#usage)
 - [API Key](#api-key)
 - [Contributing](#contributing)
-- [License](#license)
 
 
 ## Features
@@ -299,6 +298,3 @@ To use this application, you need to obtain an API key from the [Pokemon TCG API
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
