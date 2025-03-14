@@ -15,9 +15,11 @@ namespace PokemonTcgApp.Tests
 
         public FavoritesServiceTests()
         {
+            // Mock JavaScript runtime to simulate localStorage behavior
             _mockJsRuntime = new Mock<IJSRuntime>();
             _favoritesService = new FavoritesService(_mockJsRuntime.Object);
             
+            // Create a sample Pokémon card for testing
             _testCard = new PokemonCard
             {
                 Id = "test-id-1",
@@ -38,15 +40,15 @@ namespace PokemonTcgApp.Tests
         [Fact]
         public async Task GetFavoritesAsync_ReturnsEmptyList_WhenNoFavoritesExist()
         {
-            // Arrange
+            // Arrange: Simulate an empty localStorage (no saved favorites)
             _mockJsRuntime
                 .Setup(js => js.InvokeAsync<string>("localStorage.getItem", It.IsAny<object[]>()))
                 .ReturnsAsync((string)null);
 
-            // Act
+            // Act: Call the method to retrieve favorites
             var result = await _favoritesService.GetFavoritesAsync();
 
-            // Assert
+            // Assert: Ensure the returned list is not null and is empty
             Assert.NotNull(result);
             Assert.Empty(result);
         }
@@ -54,22 +56,21 @@ namespace PokemonTcgApp.Tests
         [Fact]
         public async Task GetFavoritesAsync_ReturnsFavorites_WhenFavoritesExist()
         {
-            // Arrange
+            // Arrange: Simulate localStorage containing a favorite card
             var favorites = new List<FavoriteCard>
             {
                 new FavoriteCard(_testCard)
             };
-            
             var json = JsonSerializer.Serialize(favorites);
             
             _mockJsRuntime
                 .Setup(js => js.InvokeAsync<string>("localStorage.getItem", It.IsAny<object[]>()))
                 .ReturnsAsync(json);
 
-            // Act
+            // Act: Retrieve favorites from the service
             var result = await _favoritesService.GetFavoritesAsync();
 
-            // Assert
+            // Assert: Ensure the retrieved list contains the correct favorite card
             Assert.NotNull(result);
             Assert.Single(result);
             Assert.Equal("test-id-1", result[0].Card.Id);
@@ -78,7 +79,7 @@ namespace PokemonTcgApp.Tests
         [Fact]
         public async Task AddFavoriteAsync_AddsFavorite_WhenCardIsNotAlreadyFavorite()
         {
-            // Arrange
+            // Arrange: Simulate an empty localStorage
             _mockJsRuntime
                 .Setup(js => js.InvokeAsync<string>("localStorage.getItem", It.IsAny<object[]>()))
                 .ReturnsAsync((string)null);
@@ -87,15 +88,16 @@ namespace PokemonTcgApp.Tests
                 .Setup(js => js.InvokeVoidAsync("localStorage.setItem", It.IsAny<object[]>()))
                 .Returns(ValueTask.CompletedTask);
 
-            // Act
+            // Act: Add a favorite card and retrieve the updated list
             await _favoritesService.AddFavoriteAsync(_testCard);
             var result = await _favoritesService.GetFavoritesAsync();
 
-            // Assert
+            // Assert: Ensure the favorite card has been added correctly
             Assert.NotNull(result);
             Assert.Single(result);
             Assert.Equal("test-id-1", result[0].Card.Id);
             
+            // Verify that localStorage.setItem was called once
             _mockJsRuntime.Verify(js => 
                 js.InvokeVoidAsync("localStorage.setItem", It.IsAny<object[]>()), 
                 Times.Once);
@@ -104,12 +106,11 @@ namespace PokemonTcgApp.Tests
         [Fact]
         public async Task RemoveFavoriteAsync_RemovesFavorite_WhenCardIsFavorite()
         {
-            // Arrange
+            // Arrange: Simulate localStorage containing a favorite card
             var favorites = new List<FavoriteCard>
             {
                 new FavoriteCard(_testCard)
             };
-            
             var json = JsonSerializer.Serialize(favorites);
             
             _mockJsRuntime
@@ -120,14 +121,15 @@ namespace PokemonTcgApp.Tests
                 .Setup(js => js.InvokeVoidAsync("localStorage.setItem", It.IsAny<object[]>()))
                 .Returns(ValueTask.CompletedTask);
 
-            // Act
+            // Act: Remove the favorite card and retrieve the updated list
             await _favoritesService.RemoveFavoriteAsync("test-id-1");
             var result = await _favoritesService.GetFavoritesAsync();
 
-            // Assert
+            // Assert: Ensure the list is now empty
             Assert.NotNull(result);
             Assert.Empty(result);
             
+            // Verify that localStorage.setItem was called once
             _mockJsRuntime.Verify(js => 
                 js.InvokeVoidAsync("localStorage.setItem", It.IsAny<object[]>()), 
                 Times.Once);
@@ -136,12 +138,11 @@ namespace PokemonTcgApp.Tests
         [Fact]
         public async Task UpdateFavoriteAsync_UpdatesFavorite_WhenCardIsFavorite()
         {
-            // Arrange
+            // Arrange: Simulate localStorage containing an existing favorite card
             var favorites = new List<FavoriteCard>
             {
                 new FavoriteCard(_testCard)
             };
-            
             var json = JsonSerializer.Serialize(favorites);
             
             _mockJsRuntime
@@ -152,6 +153,7 @@ namespace PokemonTcgApp.Tests
                 .Setup(js => js.InvokeVoidAsync("localStorage.setItem", It.IsAny<object[]>()))
                 .Returns(ValueTask.CompletedTask);
 
+            // Create an updated version of the favorite card with new details
             var updatedFavorite = new FavoriteCard(_testCard)
             {
                 Notes = "Test notes",
@@ -159,21 +161,21 @@ namespace PokemonTcgApp.Tests
                 MarketPrice = "$10.00"
             };
 
-            // Act
+            // Act: Update the favorite card and retrieve the updated list
             await _favoritesService.UpdateFavoriteAsync(updatedFavorite);
             var result = await _favoritesService.GetFavoritesAsync();
 
-            // Assert
+            // Assert: Ensure the card details were updated successfully
             Assert.NotNull(result);
             Assert.Single(result);
             Assert.Equal("Test notes", result[0].Notes);
             Assert.Equal("Mint", result[0].Condition);
             Assert.Equal("$10.00", result[0].MarketPrice);
             
+            // Verify that localStorage.setItem was called once
             _mockJsRuntime.Verify(js => 
                 js.InvokeVoidAsync("localStorage.setItem", It.IsAny<object[]>()), 
                 Times.Once);
         }
     }
 }
-
