@@ -201,7 +201,7 @@ The Pokemon TCG App was developed using a component-based architecture with Blaz
 1. **Single Page Application (SPA)**: Blazor WebAssembly allows for a responsive SPA experience without page reloads, providing a smooth user experience when searching for and viewing Pokemon cards.
 2. **C# Throughout**: Using C# for both frontend and backend logic eliminates the need for context switching between languages, increasing development efficiency and code consistency.
 3. **Component Reusability**: The application is built with reusable components (like `PokemonCardComponent` and `SearchBar`), which promotes code reuse and maintainability.
-4. **Client-Side Processing**: By processing data on the client side, the application reduces server load and provides immediate feedback to user actions, such as filtering and sorting cards.
+4. **Client-Side Processing**: By processing data on the client side, the application reduces server load and provides immediate feedback to user actions.
 5. **Progressive Enhancement**: The application is designed to work even with limited connectivity, storing favorites locally in the browser's localStorage.
 6. **Testability**: The service-based architecture allows for easy unit testing of business logic, as demonstrated by the comprehensive test coverage.
 7. **Incremental Development**: The project was developed incrementally, starting with core functionality (API integration) and progressively adding features (favorites management, UI enhancements), allowing for regular validation and adjustment.
