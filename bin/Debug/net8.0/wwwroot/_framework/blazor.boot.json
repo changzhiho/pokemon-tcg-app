@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "PokemonTcgApp",
   "resources": {
-    "hash": "sha256-j38CzG45wHNTwXRiS3Fbu5vKx+r2jSyW715bHixgGUk=",
+    "hash": "sha256-KehjY4XfjaB51BOj+X5VR/TkrfqJqvcDmjrlwFHuiY8=",
     "jsModuleNative": {
       "dotnet.native.8.0.13.sylwk8v2q2.js": "sha256-xNQsYHtL1vcbrVTHDZAwJM4WovpoyjsrM2C6FQ8cW1w="
     },
@@ -51,7 +51,6 @@
       "testhost.wasm": "sha256-/PMRRd05iuS6uumcDgnm7zNzTgU9mEMZv7VefYoVHtw=",
       "Moq.wasm": "sha256-C+niMR/sRde/+CflhR2mh+XrkF2dpLdVRyBAF8XyBX8=",
       "Newtonsoft.Json.wasm": "sha256-PaicHOw1U7HF05kEvZI0Rgg1nwdA8hrzbzdkw1qgUuU=",
-      "NuGet.Frameworks.wasm": "sha256-fv6Tr1rAfB2mAvIrsjAvykuKSg6VN7GjBJWqk83160I=",
       "System.Diagnostics.EventLog.wasm": "sha256-F2Id9a+/OB+z663S4PbQr6in1K4m9vFHUDftm8H5hmk=",
       "System.IO.Pipelines.wasm": "sha256-JqVBy6SV+3qk+IK3VJiyIDt9CsVk6b1/ytTXmrI4mTM=",
       "xunit.abstractions.wasm": "sha256-FMbuMTkxDbIP6RfJCxjGvjndsldPgOAoaTQzqmvU+C0=",
@@ -226,10 +225,10 @@
       "mscorlib.wasm": "sha256-RAf5jgXLg+06C4tJ3CabxAZaVjCN2/+E6fxRjRN8yHk=",
       "netstandard.wasm": "sha256-KCAE8RQwTurP5pGnGF819qf9sK++2O0rXzt6tOjlfi8=",
       "System.Private.CoreLib.wasm": "sha256-LQqLbHgeEX4HONx7GwIxGgmzIXP6n2OPxqnq+/4Tyqk=",
-      "PokemonTcgApp.wasm": "sha256-CzzBdyob3lr+X0B/7VYPHuMrgjGHgQASsMehLwbyKYc="
+      "PokemonTcgApp.wasm": "sha256-MEjwCQsZKJB87etZ6f6By1ul4FYOP/9iiYO38ge3/Bs="
     },
     "pdb": {
-      "PokemonTcgApp.pdb": "sha256-LwyTYJyea62d+NB1ia6ZAlHJhnGtXcWHw60ojAPzKaw="
+      "PokemonTcgApp.pdb": "sha256-oul/Embz+Qkaxn0rBtO/kKOSoeA54znZXWoVYBTX4nw="
     },
     "satelliteResources": {
       "cs": {

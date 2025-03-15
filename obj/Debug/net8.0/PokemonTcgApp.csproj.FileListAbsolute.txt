@@ -84,7 +84,6 @@
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/mscorlib.wasm
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/netstandard.wasm
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/Newtonsoft.Json.wasm
-/Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/NuGet.Frameworks.wasm
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/pl/Microsoft.TestPlatform.CommunicationUtilities.resources.wasm
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/pl/Microsoft.TestPlatform.CoreUtilities.resources.wasm
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/pl/Microsoft.TestPlatform.CrossPlatEngine.resources.wasm
@@ -321,7 +320,6 @@
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/System.IO.Compression.ZipFile.wasm.gz
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/System.Reflection.Emit.Lightweight.wasm.gz
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/System.Runtime.Handles.wasm.gz
-/Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/NuGet.Frameworks.wasm.gz
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/fr/Microsoft.TestPlatform.CoreUtilities.resources.wasm.gz
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/System.Diagnostics.Debug.wasm.gz
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/System.IO.FileSystem.AccessControl.wasm.gz
@@ -573,9 +571,6 @@
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/System.Runtime.CompilerServices.Unsafe.wasm.gz
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/System.Resources.ResourceManager.wasm.gz
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/PokemonTcgApp.staticwebassets.runtime.json
-/Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/xunit.runner.visualstudio.dotnetcore.testadapter.dll
-/Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/xunit.runner.reporters.netcoreapp10.dll
-/Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/xunit.runner.utility.netcoreapp10.dll
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/PokemonTcgApp.dll
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/PokemonTcgApp.pdb
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/Castle.Core.dll
@@ -612,7 +607,6 @@
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/testhost.dll
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/Moq.dll
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/Newtonsoft.Json.dll
-/Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/NuGet.Frameworks.dll
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/System.Diagnostics.EventLog.dll
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/System.IO.Pipelines.dll
 /Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/xunit.abstractions.dll
@@ -902,7 +896,6 @@
 /Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/webcil/testhost.wasm
 /Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/webcil/Moq.wasm
 /Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/webcil/Newtonsoft.Json.wasm
-/Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/webcil/NuGet.Frameworks.wasm
 /Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/webcil/System.Diagnostics.EventLog.wasm
 /Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/webcil/System.IO.Pipelines.wasm
 /Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/webcil/xunit.abstractions.wasm
@@ -1188,7 +1181,6 @@
 /Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/compressed/hv2u2tq5f2.gz
 /Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/compressed/esk2pcf4sx.gz
 /Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/compressed/ayi6r4f9wr.gz
-/Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/compressed/4s8764yzqi.gz
 /Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/compressed/7tn6wdlm76.gz
 /Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/compressed/c2r3zd0gne.gz
 /Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/compressed/79u1pnpqwj.gz
@@ -1445,3 +1437,4 @@
 /Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/refint/PokemonTcgApp.dll
 /Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/PokemonTcgApp.pdb
 /Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/ref/PokemonTcgApp.dll
+/Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/xunit.runner.visualstudio.testadapter.dll

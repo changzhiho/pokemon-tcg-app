@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "jU+owvKdiGpXhskM63dmN+g0M+v+xnlBgJxum54zOEY=",
+  "Hash": "0lqhHmCmbwwdL24u58NDxsXTkOCIpH4oaZU2SpxmH0c=",
   "Source": "PokemonTcgApp",
   "BasePath": "/",
   "Mode": "Root",
@@ -1649,25 +1649,6 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "/Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/webcil/Newtonsoft.Json.wasm"
-    },
-    {
-      "Identity": "/Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/NuGet.Frameworks.wasm",
-      "SourceId": "PokemonTcgApp",
-      "SourceType": "Computed",
-      "ContentRoot": "/Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/",
-      "BasePath": "/",
-      "RelativePath": "_framework/NuGet.Frameworks.wasm",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "WasmResource",
-      "AssetTraitValue": "runtime",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "/Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/webcil/NuGet.Frameworks.wasm"
     },
     {
       "Identity": "/Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/pl/Microsoft.TestPlatform.CommunicationUtilities.resources.wasm",
@@ -6152,25 +6133,6 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "/Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/System.Runtime.Handles.wasm"
-    },
-    {
-      "Identity": "/Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/compressed/4s8764yzqi.gz",
-      "SourceId": "PokemonTcgApp",
-      "SourceType": "Computed",
-      "ContentRoot": "/Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/",
-      "BasePath": "/",
-      "RelativePath": "_framework/NuGet.Frameworks.wasm.gz",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "/Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/NuGet.Frameworks.wasm",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "/Users/macmini/VSCode/pokemon-tcg-app/bin/Debug/net8.0/wwwroot/_framework/NuGet.Frameworks.wasm"
     },
     {
       "Identity": "/Users/macmini/VSCode/pokemon-tcg-app/obj/Debug/net8.0/compressed/510fk4bk0i.gz",
