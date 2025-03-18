@@ -1,0 +1,142 @@
+@using PokemonTcgApp.Models
+@using PokemonTcgApp.Services
+@inject FavoritesService FavoritesService
+
+@* 
+    Component that displays detailed information about a Pokemon card.
+    Shows card image, attributes, and favorite options.
+*@
+
+@if (Card != null)
+{
+    <div class="card-detail">
+        <div class="row">
+            <div class="col-md-5">
+                <img src="@Card.Images.Large" alt="@Card.Name" class="img-fluid" />
+            </div>
+            <div class="col-md-7">
+                <h2>@Card.Name</h2>
+                <p><strong>Type:</strong> @string.Join(", ", Card.Types ?? new List<string>())</p>
+                <p><strong>Supertype:</strong> @Card.Supertype</p>
+                <p><strong>Subtypes:</strong> @string.Join(", ", Card.Subtypes ?? new List<string>())</p>
+                <p><strong>HP:</strong> @Card.Hp</p>
+                <p><strong>Rarity:</strong> @Card.Rarity</p>
+
+                @if (IsFavorite)
+                {
+                    <div class="favorite-notes mt-4">
+                        <h3>My Collection Notes</h3>
+                        <div class="card p-3 bg-light">
+                            <div class="form-group mb-3">
+                                <label for="condition"><strong>Condition:</strong></label>
+                                <select id="condition" class="form-control" @bind="FavoriteData.Condition">
+                                    <option value="">Select condition</option>
+                                    <option value="Mint">Mint</option>
+                                    <option value="Near Mint">Near Mint</option>
+                                    <option value="Excellent">Excellent</option>
+                                    <option value="Good">Good</option>
+                                    <option value="Light Played">Light Played</option>
+                                    <option value="Played">Played</option>
+                                    <option value="Poor">Poor</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="marketPrice"><strong>Market Price:</strong></label>
+                                <input type="text" id="marketPrice" class="form-control" placeholder="Enter market price" @bind="FavoriteData.MarketPrice" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="notes"><strong>Notes:</strong></label>
+                                <textarea id="notes" class="form-control" rows="4" placeholder="Add your notes here..." @bind="FavoriteData.Notes"></textarea>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button class="btn btn-primary" @onclick="SaveNotes">
+                                    <span class="oi oi-check"></span> Save Notes
+                                </button>
+                                <button class="btn btn-danger" @onclick="RemoveFromFavorites">
+                                    <span class="oi oi-trash"></span> Remove from Favorites
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <button class="btn btn-primary" @onclick="AddToFavorites">
+                        <span class="oi oi-star"></span> Add to Favorites
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    // The Pokemon card to display details for
+    [Parameter]
+    public PokemonCard? Card { get; set; }
+
+    // Event callback when favorite status changes
+    [Parameter]
+    public EventCallback OnFavoriteChanged { get; set; }
+
+    // Whether the card is in favorites
+    private bool IsFavorite { get; set; }
+    
+    // Favorite data for the card
+    private FavoriteCard FavoriteData { get; set; } = new FavoriteCard();
+
+    // Update component when parameters change
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Card != null)
+        {
+            // Check if the card is in favorites
+            IsFavorite = await FavoritesService.IsFavoriteAsync(Card.Id);
+            
+            if (IsFavorite)
+            {
+                // Get the favorite data for the card
+                var favorites = await FavoritesService.GetFavoritesAsync();
+                FavoriteData = favorites.FirstOrDefault(f => f.Card.Id == Card.Id) ?? new FavoriteCard(Card);
+            }
+            else
+            {
+                // Initialize new favorite data
+                FavoriteData = new FavoriteCard(Card);
+            }
+        }
+    }
+
+    // Add the card to favorites
+    private async Task AddToFavorites()
+    {
+        if (Card != null)
+        {
+            await FavoritesService.AddFavoriteAsync(Card);
+            IsFavorite = true;
+            await OnFavoriteChanged.InvokeAsync();
+        }
+    }
+
+    // Remove the card from favorites
+    private async Task RemoveFromFavorites()
+    {
+        if (Card != null)
+        {
+            await FavoritesService.RemoveFavoriteAsync(Card.Id);
+            IsFavorite = false;
+            await OnFavoriteChanged.InvokeAsync();
+        }
+    }
+
+    // Save notes for the favorite card
+    private async Task SaveNotes()
+    {
+        if (IsFavorite)
+        {
+            await FavoritesService.UpdateFavoriteAsync(FavoriteData);
+            await OnFavoriteChanged.InvokeAsync();
+        }
+    }
+}
+

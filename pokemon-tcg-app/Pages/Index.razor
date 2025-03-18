@@ -1,0 +1,148 @@
+@page "/"
+@using Microsoft.AspNetCore.Components.Web
+@using PokemonTcgApp.Models
+@using PokemonTcgApp.Services
+@using PokemonTcgApp.Components
+@inject PokemonTcgService PokemonService
+@inject IJSRuntime JSRuntime
+
+<PageTitle>Pokemon TCG Search</PageTitle>
+
+<h1>Pokemon TCG Card Collector</h1>
+
+<SearchBar OnSearch="HandleSearch" />
+
+@if (IsLoading)
+{
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+}
+else if (Cards.Count == 0 && !string.IsNullOrEmpty(LastSearchTerm))
+{
+    <div class="alert alert-info">No cards found matching your search.</div>
+}
+else if (SelectedCard != null)
+{
+    <button class="btn btn-secondary mb-3" @onclick="BackToResults">
+        <span class="oi oi-arrow-left"></span> Back to results
+    </button>
+    <CardDetail Card="SelectedCard" OnFavoriteChanged="RefreshCards" />
+}
+else
+{
+    <div class="card-grid">
+        @foreach (var card in Cards)
+        {
+            <PokemonCardComponent Card="card" OnCardSelected="SelectCard" />
+        }
+    </div>
+
+    @if (Cards.Count > 0)
+    {
+        <div class="d-flex justify-content-center mt-4">
+            <button class="btn btn-primary" @onclick="LoadMore" disabled="@IsLoading">
+                Load More
+            </button>
+        </div>
+    }
+}
+
+@code {
+    // Collection of Pokemon cards to display
+    private List<PokemonTcgApp.Models.PokemonCard> Cards { get; set; } = new List<PokemonTcgApp.Models.PokemonCard>();
+    
+    // Currently selected card for detailed view
+    private PokemonTcgApp.Models.PokemonCard? SelectedCard { get; set; }
+    
+    // Loading state indicator
+    private bool IsLoading { get; set; } = false;
+    
+    // Last search term entered by the user
+    private string LastSearchTerm { get; set; } = string.Empty;
+    
+    // Current page for pagination
+    private int CurrentPage { get; set; } = 1;
+    
+    // Number of cards to load per page
+    private const int PageSize = 20;
+
+    // Initialize component by loading initial cards
+    protected override async Task OnInitializedAsync()
+    {
+        await SearchCards(string.Empty);
+    }
+
+    // Handle search event from SearchBar component
+    private async Task HandleSearch(string searchTerm)
+    {
+        CurrentPage = 1;
+        await SearchCards(searchTerm);
+    }
+
+    // Search for cards using the API service
+    private async Task SearchCards(string searchTerm)
+    {
+        IsLoading = true;
+        LastSearchTerm = searchTerm;
+        
+        try
+        {
+            Cards = await PokemonService.SearchCards(searchTerm, CurrentPage, PageSize);
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+
+    // Load more cards when user clicks "Load More" button
+    private async Task LoadMore()
+    {
+        // Store current scroll position before loading more cards
+        var scrollPosition = await JSRuntime.InvokeAsync<double>("scrollInterop.getScrollPosition");
+        
+        IsLoading = true;
+        
+        try
+        {
+            CurrentPage++;
+            var moreCards = await PokemonService.SearchCards(LastSearchTerm, CurrentPage, PageSize);
+            Cards.AddRange(moreCards);
+            
+            // Allow UI to update before restoring scroll position
+            await Task.Delay(50);
+            
+            // Restore scroll position
+            await JSRuntime.InvokeVoidAsync("scrollInterop.setScrollPosition", scrollPosition);
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+
+    // Handle card selection to show details
+    private void SelectCard(PokemonTcgApp.Models.PokemonCard card)
+    {
+        SelectedCard = card;
+    }
+
+    // Return to card grid view from detail view
+    private void BackToResults()
+    {
+        SelectedCard = null;
+    }
+
+    // Refresh cards after favorite status changes
+    private async Task RefreshCards()
+    {
+        if (SelectedCard == null)
+        {
+            await SearchCards(LastSearchTerm);
+        }
+    }
+}
+

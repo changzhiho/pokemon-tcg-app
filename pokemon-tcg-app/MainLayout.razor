@@ -1,0 +1,24 @@
+@* 
+    Main layout component that defines the overall structure of the application.
+    This layout is used by all pages in the application.
+*@
+
+@inherits LayoutComponentBase
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4 d-flex align-items-center">
+            <a href="/" class="me-3">Search</a>
+            <a href="/favorites" class="me-3">My Favorites</a>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+

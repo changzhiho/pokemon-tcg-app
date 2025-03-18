@@ -1,0 +1,50 @@
+@using System.Timers
+@using Microsoft.AspNetCore.Components.Web
+
+<div class="search-container mb-4">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search for Pokemon cards..." 
+               @bind="SearchTerm" @bind:event="oninput" @onkeyup="HandleKeyUp" />
+        <button class="btn btn-primary" @onclick="Search">
+            <span class="oi oi-magnifying-glass"></span> Search
+        </button>
+    </div>
+</div>
+
+@code {
+    private string SearchTerm { get; set; } = string.Empty;
+    private Timer? _debounceTimer;
+
+    [Parameter]
+    public EventCallback<string> OnSearch { get; set; }
+
+    public SearchBar()
+    {
+        _debounceTimer = new Timer(500); // Définir un délai de 500ms
+        _debounceTimer.Elapsed += async (sender, args) => await InvokeAsync(Search);
+        _debounceTimer.AutoReset = false; // Pour ne pas répéter l'exécution
+    }
+
+    private void HandleKeyUp(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            Search();
+        }
+        else
+        {
+            _debounceTimer?.Stop();
+            _debounceTimer?.Start();
+        }
+    }
+
+    private async Task Search()
+    {
+        await OnSearch.InvokeAsync(SearchTerm);
+    }
+
+    public void Dispose()
+    {
+        _debounceTimer?.Dispose();
+    }
+}

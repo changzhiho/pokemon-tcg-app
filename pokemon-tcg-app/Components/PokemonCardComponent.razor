@@ -1,0 +1,69 @@
+@using PokemonTcgApp.Models
+@using PokemonTcgApp.Services
+@inject FavoritesService FavoritesService
+@inject IJSRuntime JSRuntime
+
+@* 
+    Component that displays a Pokemon card in the grid view.
+    Shows the card image, name, and favorite button.
+*@
+
+<div class="card">
+    <img src="@Card.Images.Small" alt="@Card.Name" @onclick="ShowDetails" />
+    <div class="card-buttons">
+        @if (IsFavorite)
+        {
+            <button class="btn btn-sm btn-danger" @onclick="RemoveFromFavorites" title="Remove from favorites">
+                <span class="oi oi-minus"></span>
+            </button>
+        }
+        else
+        {
+            <button class="btn btn-sm btn-primary" @onclick="AddToFavorites" title="Add to favorites">
+                <span class="oi oi-plus"></span>
+            </button>
+        }
+    </div>
+    <div class="card-name">@Card.Name</div>
+</div>
+
+@code {
+    // The Pokemon card to display
+    [Parameter]
+    public PokemonCard Card { get; set; } = new PokemonCard();
+
+    // Event callback when the card is selected
+    [Parameter]
+    public EventCallback<PokemonCard> OnCardSelected { get; set; }
+
+    // Whether the card is in favorites
+    private bool IsFavorite { get; set; }
+
+    // Initialize the component
+    protected override async Task OnInitializedAsync()
+    {
+        // Check if the card is in favorites
+        IsFavorite = await FavoritesService.IsFavoriteAsync(Card.Id);
+    }
+
+    // Add the card to favorites
+    private async Task AddToFavorites()
+    {
+        await FavoritesService.AddFavoriteAsync(Card);
+        IsFavorite = true;
+    }
+
+    // Remove the card from favorites
+    private async Task RemoveFromFavorites()
+    {
+        await FavoritesService.RemoveFavoriteAsync(Card.Id);
+        IsFavorite = false;
+    }
+
+    // Show the card details
+    private async Task ShowDetails()
+    {
+        await OnCardSelected.InvokeAsync(Card);
+    }
+}
+
